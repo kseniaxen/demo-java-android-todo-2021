@@ -21,10 +21,14 @@ public class MainActivity extends AppCompatActivity {
         items.add(new TodoItem(1, "Task 1"));
         items.add(new TodoItem(2, "Task 2"));
         // соединитель представления со списком данных
-        ArrayAdapter<TodoItem> adapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        /* ArrayAdapter<TodoItem> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items); */
+        // подключение списка моделей данных к представлению списка
+        // todoItemsListView.setAdapter(adapter);
+        // пользовательский соединитель представления со списком данных
+        TodoListAdapter adapter =
+                new TodoListAdapter(this, R.layout.todo_list_item, items);
         // подключение списка моделей данных к представлению списка
         todoItemsListView.setAdapter(adapter);
-
     }
 }
