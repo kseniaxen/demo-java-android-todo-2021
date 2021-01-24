@@ -2,8 +2,12 @@ package org.tyaa.demo.java.android.mytodolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 new TodoListAdapter(this, R.layout.todo_list_item, items);
         // подключение списка моделей данных к представлению списка
         todoItemsListView.setAdapter(adapter);
+        // найти главную кнопку действия (переход на экран добавления нового пункта списка)
+        FloatingActionButton fab = findViewById(R.id.addTodoItemFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
