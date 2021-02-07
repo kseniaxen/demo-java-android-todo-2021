@@ -12,6 +12,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    // константа: код запроса на переход к активити с формой
+    // добавления новой задачи
+    private static final int FORM_ACTIVITY_REQUEST_CODE = 0;
+
     private TodoListAdapter adapter = null;
 
     @Override
@@ -21,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         // представление списка
         ListView todoItemsListView = findViewById(R.id.todoItemsListView);
         // заполнение списка моделей данных двумя демонстрационными объектами
-        Global.items.add(new TodoItem(1, "Task 1"));
-        Global.items.add(new TodoItem(2, "Task 2"));
+        Global.items.add(new TodoItem("Task 1", "Nunc dapibus vestibulum odio, vitae pellentesque ipsum lobortis varius"));
+        Global.items.add(new TodoItem("Task 2", "Suspendisse sit amet est ut libero pulvinar cursus auctor at justo. In aliquet arcu imperdiet, cursus augue ut, lobortis tellus."));
         // пользовательский соединитель представления со списком данных
         adapter =
                 new TodoListAdapter(this, R.layout.todo_list_item, Global.items);
@@ -39,15 +43,23 @@ public class MainActivity extends AppCompatActivity {
                 // создание объекта намерения перейти от активити MainActivity на активити FormActivity
                 Intent intent = new Intent(MainActivity.this, FormActivity.class);
                 // выполнение намерения прехода от активити MainActivity на активити FormActivity
-                MainActivity.this.startActivityForResult(intent, 0);
+                MainActivity.this.startActivityForResult(intent, FORM_ACTIVITY_REQUEST_CODE);
             }
         });
     }
 
+    // переопределение метода, который страбатывает после возврата с любой другой активити,
+    // на которую пользователь был направлен методом startActivityForResult
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0) {
+        // проверяем, что возврат произошел с активити с формой
+        // добавления новой задачи, то есть, с той активити, переходя на которую,
+        // мы сообщили код перехода FORM_ACTIVITY_REQUEST_CODE
+        if (resultCode == FORM_ACTIVITY_REQUEST_CODE) {
+            // команда адаптеру заново прочесть список моделей задач,
+            // в который пользователь добавил еще одну задачу
+            // и обновить вид виджета списка задач
             adapter.notifyDataSetChanged();
         }
     }

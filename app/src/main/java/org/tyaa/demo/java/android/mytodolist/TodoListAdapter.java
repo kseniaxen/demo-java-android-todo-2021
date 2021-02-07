@@ -46,17 +46,19 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
             view = convertView;
         }
         // ссылки на виджеты макета пункта списка задач
-        TextView idView = view.findViewById(R.id.todoListItemIdTextView);
+        // TextView idView = view.findViewById(R.id.todoListItemIdTextView);
         TextView titleView = view.findViewById(R.id.todoListItemTitleTextView);
+        TextView descriptionView = view.findViewById(R.id.todoListItemDescriptionTextView);
         // по порядковому номеру (индексу, начиная с 0)
         // находим очередной объект модели из списка моделей задач
         TodoItem item = items.get(position);
         // инициализируем атрибут "текст" виджета идентификатора задачи
         // значением из поля ИД текущего объекта модели
-        idView.setText(String.valueOf(item.getId()));
+        // idView.setText(String.valueOf(item.getId()));
         // инициализируем атрибут "текст" виджета заголовка задачи
         // значением из поля Заголовок текущего объекта модели
         titleView.setText(item.getTitle());
+        descriptionView.setText(item.getDescription());
         // возврат экземпляра макета пункта списка задач,
         // заполненными данными - об иденитификаторе и заголовке задачи
         return view;

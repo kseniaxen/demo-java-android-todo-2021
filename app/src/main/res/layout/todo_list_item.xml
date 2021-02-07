@@ -4,13 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/todoListItemIdTextView"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/> -->
     <TextView
         android:id="@+id/todoListItemTitleTextView"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/todoListItemDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

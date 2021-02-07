@@ -14,8 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></TextView>
     <EditText
-        android:id="@+id/newItemTitleTextView"
+        android:id="@+id/newItemTitleEditText"
         android:hint="Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></EditText>
+    <EditText
+        android:id="@+id/newItemDescriptionEditText"
+        android:hint="Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></EditText>
     <Button
