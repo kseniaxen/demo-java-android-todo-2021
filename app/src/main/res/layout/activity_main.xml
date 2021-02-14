@@ -8,14 +8,17 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Items"
-            android:textSize="24sp"
-            android:padding="16dp"/>
+            android:text="ToDo Items"
+            android:textSize="28sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="0dp"/>
 
         <ListView
             android:id="@+id/todoItemsListView"

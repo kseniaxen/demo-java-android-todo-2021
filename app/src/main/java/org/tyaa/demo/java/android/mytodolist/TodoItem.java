@@ -19,6 +19,8 @@ public class TodoItem {
     private String title;
     // описание задачи (строка)
     private String description;
+    // завершена ли задача
+    private Boolean done;
 
     // конструктор объекта модели задачи
     public TodoItem(String title, String description) {
@@ -26,14 +28,16 @@ public class TodoItem {
         this.id = ++TodoItem.lastId;
         this.title = title;
         this.description = description;
+        this.done = false;
     }
 
     // конструктор объекта модели задачи
-    public TodoItem(int id, String title, String description) {
+    public TodoItem(int id, String title, String description, Boolean done) {
         // сохранение (копирование) значений аргументов в поля объекта модели задачи
         this.id = id;
         this.title = title;
         this.description = description;
+        this.done = done;
     }
 
     public int getId() {
@@ -58,6 +62,14 @@ public class TodoItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean isDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
     }
 
     @Override

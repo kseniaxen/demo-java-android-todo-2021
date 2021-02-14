@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     // константа: код запроса на переход к активити с формой
     // добавления новой задачи
-    private static final int FORM_ACTIVITY_REQUEST_CODE = 0;
+    public static final int FORM_ACTIVITY_REQUEST_CODE = 0;
 
     private TodoListAdapter adapter = null;
 
