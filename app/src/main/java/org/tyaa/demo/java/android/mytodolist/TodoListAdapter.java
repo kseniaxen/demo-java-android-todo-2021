@@ -59,23 +59,56 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
         TextView titleView = view.findViewById(R.id.todoListItemTitleTextView);
         TextView descriptionView = view.findViewById(R.id.todoListItemDescriptionTextView);
         CheckBox doneView = view.findViewById(R.id.todoListItemDoneCheckBox);
+        Button showDetailsItemButton = view.findViewById(R.id.todoListItemDetailsButton);
         Button editItemButton = view.findViewById(R.id.todoListItemEditButton);
         Button deleteItemButton = view.findViewById(R.id.todoListItemDeleteButton);
         // по порядковому номеру (индексу, начиная с 0)
         // находим очередной объект модели из списка моделей задач
         TodoItem item = items.get(position);
+        // в заисимости от того, выполнена ли задача,
+        // устанавливаем светло-зеленый фон всему виджету формируемого пункта списка
+        if (item.isDone()) {
+            view.setBackgroundColor(context.getResources().getColor(android.R.color.holo_green_light));
+        } else {
+            view.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+        }
         // инициализируем атрибут "текст" виджета идентификатора задачи
         // значением из поля ИД текущего объекта модели
         // idView.setText(String.valueOf(item.getId()));
         // инициализируем атрибут "текст" виджета заголовка задачи
         // значением из поля Заголовок текущего объекта модели
         titleView.setText(item.getTitle());
-        descriptionView.setText(item.getDescription());
+        // в экземпляр виджета Description выводим текст из поля description текущей модели item
+        descriptionView.setText(
+            // проверка: больше ли длина строки description, чем 50 символов
+            (item.getDescription().length() > 75)
+                // если да - подставляем вместо всей строки первые 50 символов (от 0 до 49)
+                ? item.getDescription().substring(0, 74) + "..."
+                // если нет - подставляем строку целиком
+                : item.getDescription()
+            );
         // обработчик изменения выбора чекбокса "done"
         doneView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                // установка значения поля "выполнена ли задача" в текущую модель -
+                // в зависимости от того, выбрал пользователь чекбокс (true)
+                // или снял выделение (false)
                 item.setDone(b);
+                TodoListAdapter.this.notifyDataSetChanged();
+            }
+        });
+        // обработчик клика по кнопке details на одном пункте списка задач
+        showDetailsItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // подготовка объекта окна с кнопкой "Ок"
+                // для показа загловка и полного описания выбранной задачи
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(item.getTitle() + " (" + (item.isDone() ? "Done" : "Active") + ")")
+                    .setMessage(item.getDescription())
+                    .setPositiveButton("Ok", null)
+                    .show();
             }
         });
         // обработчик клика по кнопке edit на одном пункте списка задач

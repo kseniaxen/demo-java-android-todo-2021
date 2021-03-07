@@ -1,20 +1,22 @@
 package org.tyaa.demo.java.android.mytodolist;
 
-public class TodoItem {
+import com.orm.SugarRecord;
+
+public class TodoItem extends SugarRecord {
 
     // private static int lastId = 0;
     // последний назначенный идентификатор
-    private static int lastId;
+    private static Long lastId;
 
     // статический конструктор
     // выполняется при загрузке приложения -
     // при загрузке класса в память
     static {
-        lastId = 0;
+        lastId = 0L;
     }
 
     // идентификатор задачи (целое число)
-    private int id;
+    private Long id;
     // загловок задачи (строка)
     private String title;
     // описание задачи (строка)
@@ -32,7 +34,7 @@ public class TodoItem {
     }
 
     // конструктор объекта модели задачи
-    public TodoItem(int id, String title, String description, Boolean done) {
+    public TodoItem(Long id, String title, String description, Boolean done) {
         // сохранение (копирование) значений аргументов в поля объекта модели задачи
         this.id = id;
         this.title = title;
@@ -40,11 +42,11 @@ public class TodoItem {
         this.done = done;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
