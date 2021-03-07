@@ -65,6 +65,7 @@
             android:layout_margin="15dp"
             android:background="@drawable/btn_transparent_background"/>
         <Button
+            android:id="@+id/todoListItemDeleteButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="delete"

@@ -1,6 +1,8 @@
 package org.tyaa.demo.java.android.mytodolist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,7 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
         TextView descriptionView = view.findViewById(R.id.todoListItemDescriptionTextView);
         CheckBox doneView = view.findViewById(R.id.todoListItemDoneCheckBox);
         Button editItemButton = view.findViewById(R.id.todoListItemEditButton);
+        Button deleteItemButton = view.findViewById(R.id.todoListItemDeleteButton);
         // по порядковому номеру (индексу, начиная с 0)
         // находим очередной объект модели из списка моделей задач
         TodoItem item = items.get(position);
@@ -87,6 +90,41 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
                 intent.putExtra("editedItemId", item.getId());
                 // выполнение намерения прехода от активити MainActivity на активити FormActivity
                 ((MainActivity)context).startActivityForResult(intent, MainActivity.FORM_ACTIVITY_REQUEST_CODE);
+            }
+        });
+        // обработчик клика по кнопке delete на одном пункте списка задач
+        deleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // подготовка обработчика события "клик по кнопке Согласиться или Отменить"
+                // для установки в будущее окно подстверждения действия пользователя
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                // когда пользователь подтвердил действие,
+                                // вызываем на списке моделей метод удаления,
+                                // передавая ему аргумент - ссылку на текущий объект модели item
+                                Global.items.remove(item);
+                                // издание события,
+                                // которое приводит к перерисовке списка адаптером
+                                TodoListAdapter.this.notifyDataSetChanged();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                // когда пользователь отменил действие
+                                // - не делаем ничего
+                                break;
+                        }
+                    }
+                };
+                // подготовка объекта окна с кнопками выбора "Delete" или "Cancel"
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure?")
+                    .setPositiveButton("Delete", dialogClickListener)
+                    .setNegativeButton("Cancel", dialogClickListener)
+                    .show();
             }
         });
         // возврат экземпляра макета пункта списка задач,
