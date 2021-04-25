@@ -2,6 +2,9 @@ package org.tyaa.demo.java.android.mytodolist;
 
 import com.orm.SugarRecord;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TodoItem extends SugarRecord {
 
     // private static int lastId = 0;
@@ -23,6 +26,8 @@ public class TodoItem extends SugarRecord {
     private String description;
     // завершена ли задача
     private Boolean done;
+    // дата, на которую запланировано выполнение задачи
+    private String date;
 
     // конструктор объекта модели задачи
     public TodoItem(String title, String description) {
@@ -31,6 +36,17 @@ public class TodoItem extends SugarRecord {
         this.title = title;
         this.description = description;
         this.done = false;
+        this.date = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+    }
+
+    // конструктор объекта модели задачи
+    public TodoItem(String title, String description, String date) {
+        // сохранение (копирование) значений аргументов в поля объекта модели задачи
+        this.id = ++TodoItem.lastId;
+        this.title = title;
+        this.description = description;
+        this.done = false;
+        this.date = date;
     }
 
     // конструктор объекта модели задачи
@@ -72,6 +88,14 @@ public class TodoItem extends SugarRecord {
 
     public void setDone(Boolean done) {
         this.done = done;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

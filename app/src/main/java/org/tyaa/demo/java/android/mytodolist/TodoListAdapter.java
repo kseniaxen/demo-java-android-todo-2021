@@ -58,6 +58,7 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
         // TextView idView = view.findViewById(R.id.todoListItemIdTextView);
         TextView titleView = view.findViewById(R.id.todoListItemTitleTextView);
         TextView descriptionView = view.findViewById(R.id.todoListItemDescriptionTextView);
+        TextView dateView = view.findViewById(R.id.todoListItemDateTextView);
         CheckBox doneView = view.findViewById(R.id.todoListItemDoneCheckBox);
         Button showDetailsItemButton = view.findViewById(R.id.todoListItemDetailsButton);
         Button editItemButton = view.findViewById(R.id.todoListItemEditButton);
@@ -87,6 +88,7 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
                 // если нет - подставляем строку целиком
                 : item.getDescription()
             );
+        dateView.setText(item.getDate());
         // обработчик изменения выбора чекбокса "done"
         doneView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
