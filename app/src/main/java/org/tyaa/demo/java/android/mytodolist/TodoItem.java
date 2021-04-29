@@ -1,5 +1,7 @@
 package org.tyaa.demo.java.android.mytodolist;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 
 import java.text.SimpleDateFormat;
@@ -47,6 +49,7 @@ public class TodoItem extends SugarRecord {
         this.description = description;
         this.done = false;
         this.date = date;
+        Log.d("MyTag: date", date);
     }
 
     // конструктор объекта модели задачи

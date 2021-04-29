@@ -3,12 +3,23 @@ package org.tyaa.demo.java.android.mytodolist;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+// import sun.java2d.d3d.D3DGraphicsDevice;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // проверяем, что возврат произошел с активити с формой
         // добавления новой задачи, то есть, с той активити, переходя на которую,
         // мы сообщили код перехода FORM_ACTIVITY_REQUEST_CODE
-        if (resultCode == FORM_ACTIVITY_REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == FORM_ACTIVITY_REQUEST_CODE) {
             // команда адаптеру заново прочесть список моделей задач,
             // в который пользователь добавил еще одну задачу
             // и обновить вид виджета списка задач

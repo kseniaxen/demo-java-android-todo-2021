@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class TodoListAdapter extends ArrayAdapter<TodoItem> {
                 // добавляем в объект интента расширение:
                 // идентификатор пункта списка, данные которого нужно редактировать
                 intent.putExtra("editedItemId", item.getId());
+                Log.d("MyTag", item.getId().toString());
                 // выполнение намерения прехода от активити MainActivity на активити FormActivity
                 ((MainActivity)context).startActivityForResult(intent, MainActivity.FORM_ACTIVITY_REQUEST_CODE);
             }
