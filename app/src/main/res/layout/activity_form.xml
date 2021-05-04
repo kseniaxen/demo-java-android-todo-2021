@@ -24,10 +24,14 @@
         android:hint="Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></EditText>
-    <CalendarView
+    <!--<CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />!-->
+    <DatePicker
+        android:id="@+id/datePickerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/addButton"
         android:text="Add"

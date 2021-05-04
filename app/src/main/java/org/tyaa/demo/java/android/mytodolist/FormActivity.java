@@ -11,12 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /* класс активити добавления новой задачи */
 public class FormActivity extends AppCompatActivity {
@@ -39,10 +42,12 @@ public class FormActivity extends AppCompatActivity {
         // находим поле ввода заголовка новой задачи
         EditText titleEditText = findViewById(R.id.newItemTitleEditText);
         EditText descriptionEditText = findViewById(R.id.newItemDescriptionEditText);
-        CalendarView calendarView = findViewById(R.id.calendarView);
+        //CalendarView calendarView = findViewById(R.id.calendarView);
+        DatePicker datePickerView = findViewById(R.id.datePickerView);
 
         TextView newItemName = findViewById(R.id.newItemName);
 
+        /*
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // номер первого месяца - 0,
             // поэтому номер любого месяца увеличиваем на 1
@@ -53,6 +58,21 @@ public class FormActivity extends AppCompatActivity {
                     String.format("%s%s.%s%s.%s", dayZero, dayOfMonth, monthZero, month, year);
             Log.d("MyTag: OnDateChangeListener", formattedSelectedDate);
             selectedDateString = formattedSelectedDate;
+        });
+         */
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        datePickerView.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
+                String monthZero = monthOfYear < 10 ? "0" : "";
+                String dayZero = dayOfMonth < 10 ? "0" : "";
+                final String formattedSelectedDate =
+                        String.format("%s%s.%s%s.%s", dayZero, dayOfMonth, monthZero, monthOfYear, year);
+                Log.d("MyTag: OnDateChangeListener", formattedSelectedDate);
+                selectedDateString = formattedSelectedDate;
+            }
         });
         // если интент, открывший данную активность, содержит
         // расширение - ИД модели для редактирования
@@ -68,12 +88,27 @@ public class FormActivity extends AppCompatActivity {
                         // заполнить виджеты ввода данных из текущей модели
                         titleEditText.setText(currentTodoItem.getTitle());
                         descriptionEditText.setText(currentTodoItem.getDescription());
+                        /*
                         try {
                             calendarView.setDate(
                                     new SimpleDateFormat("dd.MM.yyyy")
                                             .parse(currentTodoItem.getDate())
                                             .getTime()
                             );
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                         */
+                        Date date;
+                        try {
+                            date =  new SimpleDateFormat("dd.MM.yyyy")
+                                    .parse(currentTodoItem.getDate());
+                            calendar.setTime(date);
+                            datePickerView.updateDate(
+                                    calendar.get(Calendar.YEAR),
+                                    calendar.get(Calendar.MONTH),
+                                    calendar.get(Calendar.DAY_OF_MONTH)
+                                    );
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -96,8 +131,8 @@ public class FormActivity extends AppCompatActivity {
                     // titleEditText.getText().toString() - из виджета titleEditText
                     // считываем заголовок задачи, который ввел пользователь
                     // и передаем как аргумент конструктора модели задачи
-                    Log.d("MyTag 0: date", new SimpleDateFormat("dd.MM.yyyy")
-                            .format(new Date(calendarView.getDate())));
+                    //Log.d("MyTag 0: date", new SimpleDateFormat("dd.MM.yyyy")
+                    //        .format(new Date(calendarView.getDate())));
                     Global.items.add(
                             new TodoItem(
                                     titleEditText.getText().toString(),
