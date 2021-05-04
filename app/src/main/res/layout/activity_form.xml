@@ -8,6 +8,7 @@
     tools:context=".FormActivity">
 
     <TextView
+        android:id="@+id/newItemName"
         android:textSize="24sp"
         android:textAlignment="center"
         android:text="Add A New Item"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,8 @@ public class FormActivity extends AppCompatActivity {
         EditText descriptionEditText = findViewById(R.id.newItemDescriptionEditText);
         CalendarView calendarView = findViewById(R.id.calendarView);
 
+        TextView newItemName = findViewById(R.id.newItemName);
+
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // номер первого месяца - 0,
             // поэтому номер любого месяца увеличиваем на 1
@@ -55,6 +58,8 @@ public class FormActivity extends AppCompatActivity {
         // расширение - ИД модели для редактирования
         if (intent.hasExtra("editedItemId")) {
             Long editedItemId = intent.getLongExtra("editedItemId", 0L);
+            newItemName.setText("Edit Item");
+            addButton.setText("Edit");
             if (!editedItemId.equals(0L)) {
                 // найти по ИД модель из списка
                 for (TodoItem item : Global.items) {
@@ -75,6 +80,9 @@ public class FormActivity extends AppCompatActivity {
                     }
                 }
             }
+        }else{
+            newItemName.setText("Add A New Item");
+            addButton.setText("Add");
         }
         // установка обработчика события клик по кнопке добавления задачи
         addButton.setOnClickListener(new View.OnClickListener() {
